@@ -26,7 +26,7 @@ describe('Test validate fields', () => {
 
         form = {
             nickname: 'werw',
-            password: '12345678997',
+            password: '123456789970poll',
         };
         expect(validateForms(form, 'signIn')).toBeFalsy();
     });
