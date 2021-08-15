@@ -2,6 +2,22 @@ const UserModel = require("../models/User");
 
 class UserController {
     /**
+    * Registration
+    * 
+    * @param {Object} req 
+    * @param {Object} res 
+    */
+    static async signUp(req, res) {
+        try {
+            await UserModel.saveUser(req.body);
+
+            res.json({ message: 'Успешная регистрация' });
+        } catch(error) {
+            res.status(400).json({ errorMessage: error.message });
+        }
+    }
+
+    /**
      * Authentication.
      * If the data is correct return user data else
      * return message.
@@ -21,6 +37,19 @@ class UserController {
     }
 
     /**
+     * Sign out from account.
+     * 
+     * @param {Object} req 
+     * @param {Object} res 
+     */
+    static async signOut(req, res) {
+        //Delete session from db.
+        req.session.destroy()
+        req.logout();
+        res.json({ message: 'Сессия удалена' });
+    }
+
+    /**
      * Checking user in db by field
      * 
      * @param {Object} selectionBy
@@ -32,35 +61,6 @@ class UserController {
         } catch(error) {
             return { errorMessage: error.message };
         }
-    }
-
-    /**
-     * Registration
-     * 
-     * @param {Object} req 
-     * @param {Object} res 
-     */
-    static async signUp(req, res) {
-        try {
-            await UserModel.saveUser(req.body);
-
-            res.json({ message: 'Успешная регистрация' });
-        } catch(error) {
-            res.status(400).json({ errorMessage: error.message });
-        }
-    }
-
-    /**
-     * Sign out from account.
-     * 
-     * @param {Object} req 
-     * @param {Object} res 
-     */
-    static async signOut(req, res) {
-        //Delete session from db.
-        req.session.destroy()
-        req.logout();
-        res.json({ message: 'Сессия удалена' });
     }
 }
 

@@ -5,6 +5,23 @@ const query = require('../database/query');
 class UserModel {
     /**
      * @param {Object} candidateData {
+     *                                   nickname: string,
+     *                                   password: string,
+     *                                   repeatPassword: string,
+     *                               }
+     */
+    static async saveUser(candidateData) {
+        const [ userData ] = await this.getOne({ nickname: candidateData.nickname });
+
+        if(userData.length !== 0) {
+            throw new Error('Такой пользователь уже существует');
+        }
+
+        return await this.setOne(candidateData);
+    }
+
+    /**
+     * @param {Object} candidateData {
      *                                    nickname: string,
      *                                    password: string
      *                               }
@@ -30,27 +47,10 @@ class UserModel {
     }
 
     /**
-     * @param {Object} candidateData {
-     *                                   nickname: string,
-     *                                   password: string,
-     *                                   repeatPassword: string,
-     *                               }
-     */
-    static async saveUser(candidateData) {
-        const [ userData ] = await this.getOne({ nickname: candidateData.nickname });
-
-        if(userData.length !== 0) {
-            throw new Error('Такой пользователь уже существует');
-        }
-
-        return await this.setOne(candidateData);
-    }
-
-    /**
      * Get one user.
      * 
      * @param {Object} param {
-     *                           key{string}: value{string}
+     *                           key: value{string}
      *                       }
      * @returns {Promise}
      */

@@ -1,37 +1,41 @@
-function dbSettings() {
-    return {
-        host : 'localhost',
-        user : 'mysql',
-        password: 'mysql',
-        database: 'test'
+class Settings {
+    static getDB() {
+        return {
+            host : 'localhost',
+            user : 'mysql',
+            password: 'mysql',
+            database: 'test'
+        };
     }
-}
 
-function mysqlSessionSettings() {
-    return {
-        charset: 'utf8mb4_bin',
-        clearExpired: true,
-        schema: {
-            tableName: 'sessions',
-            columnNames: {
-                session_id: 'session_id',
-                expires: 'expires',
-                data: 'data'
+    static getSession(MySQLStore) {
+        const store = new MySQLStore({ ...this.getDB(), ...this.#getMySQLSession() });
+
+        return {
+            store,
+            resave: true,
+            saveUninitialized: false,
+            secret: 'waf@M!O',
+            cookie: {
+                httpOnly: true,
             }
-        }
+        };
+    }
+
+    static #getMySQLSession() {
+        return {
+            charset: 'utf8mb4_bin',
+            clearExpired: true,
+            schema: {
+                tableName: 'sessions',
+                columnNames: {
+                    session_id: 'session_id',
+                    expires: 'expires',
+                    data: 'data'
+                }
+            }
+        };
     }
 }
 
-function sessionSettings(store) {
-    return {
-        store,
-        resave: true,
-        saveUninitialized: false,
-        secret: 'SECRET',
-        cookie: {
-            httpOnly: true,
-        }
-    }
-}
-
-module.exports = { dbSettings, mysqlSessionSettings, sessionSettings };
+module.exports = { Settings };
