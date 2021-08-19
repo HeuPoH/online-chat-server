@@ -6,7 +6,9 @@ const ValidateForm = require('../../settings/ValidateForm');
 
 // Checking fields on the correctness of input.
 router.use((req, res, next) => {
-    ValidateForm.findErrors(req.body, 'signUp') ? res.status(400).json({ errorMessage: 'Введены не все данные или пароли не одинаковые' }) : next();
+    ValidateForm.findErrors(req.body, 'signUp')
+        ? res.status(400).json({ errorMessage: 'Введены не все данные или пароли не одинаковые' })
+        : next();
 });
 
 // Delete fields, which dont put to database

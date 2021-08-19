@@ -49,9 +49,9 @@ class Passport {
             async (req, nickname, password, done) => {
                 const result = await UserController.signIn(req.body);
     
-                return result.errorMessage ?
-                    done({ errorMessage: result.errorMessage, status: 401 }) :
-                    done(null, result);
+                return result.errorMessage
+                    ? done({ errorMessage: result.errorMessage, status: 401 })
+                    : done(null, result);
             }
         );
     }

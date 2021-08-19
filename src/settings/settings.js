@@ -36,6 +36,12 @@ class Settings {
             }
         };
     }
+
+    static chat() {
+        return {
+            countOnPage: 5,
+        };
+    }
 }
 
 module.exports = { Settings };

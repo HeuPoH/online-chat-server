@@ -2,7 +2,11 @@ const express = require('express');
 
 const router = express.Router();
 const isUser = require('../../extensions/middlewares/isUser');
+const ChatController = require('../../controllers/Chat');
 
-router.get('/chat', (req, res) => {
-    res.send('chat');
-});
+// Access only for users.
+router.use('/', isUser);
+router.get('/', ChatController.getMessages);
+router.ws('/', require('./wsChat'));
+
+module.exports = router;

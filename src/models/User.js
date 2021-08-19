@@ -6,8 +6,7 @@ class UserModel {
     /**
      * @param {Object} candidateData {
      *                                   nickname: string,
-     *                                   password: string,
-     *                                   repeatPassword: string,
+     *                                   password: string
      *                               }
      */
     static async saveUser(candidateData) {
@@ -39,11 +38,7 @@ class UserModel {
             throw new Error('Неверно введен логин или пароль');
         };
 
-        return {
-            id: userData[0].id,
-            nickname: userData[0].nickname,
-            role: userData[0].role
-        };
+        return { ...userData[0] };
     }
 
     /**

@@ -42,7 +42,7 @@ class UserController {
      * @param {Object} req 
      * @param {Object} res 
      */
-    static async signOut(req, res) {
+    static signOut(req, res) {
         //Delete session from db.
         req.session.destroy()
         req.logout();
