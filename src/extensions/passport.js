@@ -27,7 +27,7 @@ class Passport {
 
     static #serializeData() {
         passport.serializeUser((user, done) => {
-            user ? done(null, user) : done({ errorMessage: 'Произошла ошибка' });
+            user ? done(null, user) : done({ error: 'Произошла ошибка' });
         });
     }
 
@@ -49,8 +49,8 @@ class Passport {
             async (req, nickname, password, done) => {
                 const result = await UserController.signIn(req.body);
     
-                return result.errorMessage
-                    ? done({ errorMessage: result.errorMessage, status: 401 })
+                return result.error
+                    ? done({ error: result.error, status: 401 })
                     : done(null, result);
             }
         );

@@ -2,7 +2,7 @@ const UserModel = require("../models/User");
 
 class UserController {
     /**
-    * Registration
+    * Registration.
     * 
     * @param {Object} req 
     * @param {Object} res 
@@ -13,7 +13,7 @@ class UserController {
 
             res.json({ message: 'Успешная регистрация' });
         } catch(error) {
-            res.status(400).json({ errorMessage: error.message });
+            res.status(400).json({ error: error.message });
         }
     }
 
@@ -32,7 +32,7 @@ class UserController {
         try {
             return await UserModel.getUser(candidateData);
         } catch(error) {
-            return { errorMessage: error.message };
+            return { error: error.message };
         }
     }
 
@@ -59,7 +59,7 @@ class UserController {
         try {
             return await UserModel.getOne(selectionBy);
         } catch(error) {
-            return { errorMessage: error.message };
+            return { error: error.message };
         }
     }
 }

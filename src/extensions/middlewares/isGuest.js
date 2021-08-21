@@ -6,7 +6,7 @@
  * @param {function} next 
  */
 function isGuest (req, res, next) {
-    return !req.isAuthenticated() ? next() : res.status(400).json({ errorMessage: 'Вы уже авторизованы' });
+    return !req.isAuthenticated() ? next() : res.status(400).json({ error: 'Вы уже авторизованы' });
 };
 
 module.exports = isGuest;

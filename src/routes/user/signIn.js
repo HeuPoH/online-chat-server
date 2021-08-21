@@ -7,7 +7,7 @@ const ValidateForm = require('../../settings/ValidateForm');
 //Checking fields on the correctness of input.
 router.post('/signIn', (req, res, next) => {
     ValidateForm.findErrors(req.body, 'signIn')
-        ? res.status(400).json({ errorMessage: 'Введены не все данные' })
+        ? res.status(400).json({ error: 'Введены не все данные' })
         : next();
 });
 

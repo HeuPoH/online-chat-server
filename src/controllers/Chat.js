@@ -7,7 +7,7 @@ class ChatController {
 
             res.json({ messages: messages[0], count: count[0][0].count });
         } catch(error) {
-            res.status(500).json({ errorMessage: 'Ошибка сервера' });
+            res.status(500).json({ error: error.message });
         }
     }
 
@@ -24,8 +24,7 @@ class ChatController {
         try {
             return await ChatModel.saveMessage(item);
         } catch(error) {
-            console.log(error);
-            return false;
+            return { error: error.message };
         }
     }
 
@@ -37,7 +36,6 @@ class ChatController {
     static async deleteMessage(idMessage) {
         try {
             await ChatModel.deleteMessage(idMessage);
-            return true;
         } catch(error) {
             return false;
         }

@@ -9,7 +9,7 @@ function wsChat(ws, req) {
         const item = { id_user: req.user.id, message, date: Date.now() };
         const result = await ChatController.addMessage(item);
 
-        if(result) {
+        if(!result.message) {
             store.getClients().forEach(client => {
                 if(client.OPEN) client.send(JSON.stringify({ id: result[0].insertId, ...item, nickname: req.user.nickname }));
             });
