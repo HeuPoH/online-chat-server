@@ -32,7 +32,7 @@ class ChatModel {
 
         return await query(`insert into chat set ${fields}`, values);
     }
-
+ 
     /**
      * @param {number} idMessage 
      * @returns {Promise}
